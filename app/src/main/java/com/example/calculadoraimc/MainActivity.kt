@@ -1,5 +1,6 @@
 package com.example.calculadoraimc
 
+import android.content.Context   // 👈 este es el que faltaba
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -20,40 +21,37 @@ class MainActivity : AppCompatActivity() {
         val btnIMC = findViewById<Button>(R.id.btnIMC)
         val tvimc = findViewById<TextView>(R.id.tvIMC)
 
+        val prefs = getSharedPreferences("usuario_prefs", Context.MODE_PRIVATE)
+        val nombre = prefs.getString("nombre", "Usuario")
+
+        // Mostrar saludo
+        val saludo = findViewById<TextView>(R.id.tvIMC)
+        saludo.text = "Hola, $nombre 👋"
+
         btnIMC.setOnClickListener {
             val pesotexto = edPeso.text.toString()
             val estatura1 = edEstatura.text.toString()
 
-            if (pesotexto.isNotEmpty()&& estatura1.isNotEmpty()){
+            if (pesotexto.isNotEmpty() && estatura1.isNotEmpty()) {
                 val peso = pesotexto.toFloat()
                 val estatura = estatura1.toFloat()
-                tvimc.text = " "
+                tvimc.text = ""
 
-                if (estatura>0){
-                    val imc = peso /(estatura*estatura)
-                    if (imc <= 18.5){
-                        tvimc.setText("Bajo peso")
+                if (estatura > 0) {
+                    val imc = peso / (estatura * estatura)
+                    tvimc.text = when {
+                        imc <= 18.5 -> "IMC: %.2f (Bajo peso)".format(imc)
+                        imc <= 24.9 -> "IMC: %.2f (Normal)".format(imc)
+                        imc <= 29.9 -> "IMC: %.2f (Sobrepeso)".format(imc)
+                        else -> "IMC: %.2f (Obesidad)".format(imc)
                     }
-                    if (imc >18.5 && imc<=24.9){
-                        tvimc.setText("Normal")
-                    }
-                    if (imc >24.9 && imc<=29.9){
-                        tvimc.setText("Sobrepeso")
-                    }
-                    if (imc>29.9){
-                        tvimc.setText("Obesidad")
-                    }
-                }else{
-                    tvimc.setText("Digite la estatura")
+                } else {
+                    tvimc.text = "Digite la estatura"
                 }
-            }else{
-                tvimc.setText("Hay un Campo vacio:\ncampos vacios.\nPeso= $pesotexto, y altura = $estatura1")
+            } else {
+                tvimc.text = "Hay un campo vacío:\nPeso= $pesotexto, Estatura= $estatura1"
             }
-
-
-
         }
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

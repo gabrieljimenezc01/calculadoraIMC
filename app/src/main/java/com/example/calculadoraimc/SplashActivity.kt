@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
 
 class SplashActivity : AppCompatActivity() {
 
@@ -18,12 +19,21 @@ class SplashActivity : AppCompatActivity() {
         videoView.setVideoURI(uri)
 
         // Inicia el video
+
         videoView.start()
 
         // Cuando termine el video, abre la actividad principal
         videoView.setOnCompletionListener {
-            startActivity(Intent(this, MainActivity::class.java))
+            val prefs = getSharedPreferences("usuario_prefs", Context.MODE_PRIVATE)
+            val nombre = prefs.getString("nombre", null)
+
+            if (nombre.isNullOrEmpty()) {
+                startActivity(Intent(this, RegistroActivity::class.java))
+            } else {
+                startActivity(Intent(this, MainActivity::class.java))
+            }
             finish()
         }
+
     }
 }
