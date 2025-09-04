@@ -1,6 +1,6 @@
 package com.example.calculadoraimc
 
-import android.content.Context   // 👈 este es el que faltaba
+import android.content.Context
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -9,8 +9,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import android.content.ContentValues
+import android.os.Build
+import android.widget.Toast
+import androidx.annotation.RequiresApi
+import java.time.LocalDateTime
 
 class MainActivity : AppCompatActivity() {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -19,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         val edPeso = findViewById<EditText>(R.id.edPeso)
         val edEstatura = findViewById<EditText>(R.id.edEstatura)
         val btnIMC = findViewById<Button>(R.id.btnIMC)
+        val btnGuardar = findViewById<Button>(R.id.btnGuardar)
         val tvimc = findViewById<TextView>(R.id.tvIMC)
 
         val prefs = getSharedPreferences("usuario_prefs", Context.MODE_PRIVATE)
@@ -51,6 +58,21 @@ class MainActivity : AppCompatActivity() {
             } else {
                 tvimc.text = "Hay un campo vacío:\nPeso= $pesotexto, Estatura= $estatura1"
             }
+        }
+        btnGuardar.setOnClickListener {
+            val currentDateTime = LocalDateTime.now()
+            val admin = AdminSQLiteOpenHelper(this,"administracion", null, 1)
+            val bd = admin.writableDatabase
+            val registro = ContentValues()
+            registro.put("fecha", currentDateTime.toString())
+            registro.put("nombre", nombre)
+            registro.put("peso", edPeso.text.toString().toDouble())
+            registro.put("estatura", edEstatura.text.toString().toDouble())
+            registro.put("imc", tvimc.text.toString())
+            bd.insert("historial", null, registro)
+            bd.close()
+            Toast.makeText(this, "Se cargaron los datos del artículo", Toast.LENGTH_SHORT).show()
+
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
