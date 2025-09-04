@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import android.content.ContentValues
+import android.content.Intent
 import android.os.Build
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -26,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         val edEstatura = findViewById<EditText>(R.id.edEstatura)
         val btnIMC = findViewById<Button>(R.id.btnIMC)
         val btnGuardar = findViewById<Button>(R.id.btnGuardar)
+        val btnHistorial = findViewById<Button>(R.id.btnhistorial)
         val tvimc = findViewById<TextView>(R.id.tvIMC)
 
         val prefs = getSharedPreferences("usuario_prefs", Context.MODE_PRIVATE)
@@ -72,6 +74,9 @@ class MainActivity : AppCompatActivity() {
             bd.close()
             Toast.makeText(this, "Se cargaron los datos del artículo", Toast.LENGTH_SHORT).show()
 
+        }
+        btnHistorial.setOnClickListener {
+            startActivity(Intent(this, history_activity::class.java))
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
