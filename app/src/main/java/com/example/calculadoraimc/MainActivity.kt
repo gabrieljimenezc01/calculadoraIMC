@@ -64,7 +64,6 @@ class MainActivity : AppCompatActivity() {
             val admin = AdminSQLiteOpenHelper(this,"administracion", null, 1)
             val bd = admin.writableDatabase
             val registro = ContentValues()
-            registro.put("fecha", currentDateTime.toString())
             registro.put("nombre", nombre)
             registro.put("peso", edPeso.text.toString().toDouble())
             registro.put("estatura", edEstatura.text.toString().toDouble())

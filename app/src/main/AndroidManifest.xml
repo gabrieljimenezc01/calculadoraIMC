@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CalculadoraIMC">
-
+        <activity
+            android:name=".history_activity"
+            android:exported="false" />
         <!-- Splash es la primera pantalla -->
         <activity
             android:name=".SplashActivity"
@@ -19,16 +21,13 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- RegistroActivity se abre solo si el usuario no existe -->
+        </activity> <!-- RegistroActivity se abre solo si el usuario no existe -->
         <activity
             android:name=".RegistroActivity"
-            android:exported="true" />
-
-        <!-- MainActivity se abre después de registrar o si ya hay nombre -->
+            android:exported="true" /> <!-- MainActivity se abre después de registrar o si ya hay nombre -->
         <activity
             android:name=".MainActivity"
             android:exported="true" />
