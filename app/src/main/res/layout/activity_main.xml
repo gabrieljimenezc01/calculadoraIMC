@@ -36,7 +36,8 @@
         app:layout_constraintBottom_toTopOf="@+id/tvEstatura"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvPeso" />
+        app:layout_constraintTop_toTopOf="@+id/tvPeso"
+        android:inputType="number"/>
 
     <EditText
         android:id="@+id/edEstatura"
@@ -47,7 +48,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edPeso"
-        app:layout_constraintVertical_bias="0.348" />
+        app:layout_constraintVertical_bias="0.348"
+        android:inputType="numberDecimal"/>
 
     <Button
         android:id="@+id/btnIMC"
@@ -70,21 +72,21 @@
         app:layout_constraintTop_toBottomOf="@+id/btnIMC" />
 
     <Button
-        android:id="@+id/btnGuardar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Guardar IMC"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnIMC" />
-    <Button
         android:id="@+id/btnhistorial"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ver Historial"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnGuardar" />
+        app:layout_constraintTop_toBottomOf="@+id/btnIMC" />
+    <Button
+        android:id="@+id/btnRol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cambiar Usuario"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnhistorial" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

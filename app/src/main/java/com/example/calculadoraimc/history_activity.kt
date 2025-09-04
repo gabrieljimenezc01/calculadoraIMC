@@ -1,5 +1,6 @@
 package com.example.calculadoraimc
 
+import android.content.Context
 import android.os.Bundle
 import android.widget.TableLayout
 import androidx.activity.enableEdgeToEdge
@@ -17,8 +18,10 @@ class history_activity : AppCompatActivity() {
         val tableLayout = findViewById<TableLayout>(R.id.tableHistorial)
         val admin = AdminSQLiteOpenHelper(this, "administracion", null, 1)
         val db = admin.readableDatabase
+        val prefs = getSharedPreferences("usuario_prefs", Context.MODE_PRIVATE)
+        val user = prefs.getString("nombre", "Usuario")
 
-        val cursor = db.rawQuery("SELECT codigo, nombre, peso, estatura, imc FROM historial", null)
+        val cursor = db.rawQuery("SELECT codigo, nombre, peso, estatura, imc FROM historial WHERE nombre = '$user'", null)
 
         if (cursor.moveToFirst()) {
             do {
