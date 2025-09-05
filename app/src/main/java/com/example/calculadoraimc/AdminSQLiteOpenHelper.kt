@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory
 class AdminSQLiteOpenHelper(context: Context, name: String, factory: CursorFactory?, version: Int) : SQLiteOpenHelper(context, name, factory, version) {
 
     override fun onCreate(db: SQLiteDatabase) {
-        db.execSQL("create table historial(codigo INTEGER PRIMARY KEY, nombre text, peso double, estatura double, imc text)")
+        db.execSQL("create table historial(codigo INTEGER PRIMARY KEY, nombre text, fecha text, peso double, estatura double, imc text)")
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">calculadora IMC</string>
+    <string name="peso">Weight</string>
+    <string name="estatura">Stature</string>
+    <string name="edPeso">Enter your weight in kilograms</string>
+    <string name="edEstatura">Enter your height in meters</string>
+    <string name="btnCalcular">Calculate BMI</string>
+    <string name="btnHistorial">View History</string>
+    <string name="btnRol">Change User</string>
+    <string name="Saludo">"Hi! "</string>
+    <string name="imc">BMI</string>
+    <string name="fecha">Date</string>
+    <string name="faltandatos">All fields must be completed</string>
+    <string name="bajopeso">Low weight</string>
+    <string name="sobrepeso">overweight</string>
+    <string name="obesidad">Obesity</string>
+    <string name="tvnombre">Name</string>
+    <string name="ednombre">Write your name here</string>
+    <string name="tvnameapp">BMI</string>
+</resources>

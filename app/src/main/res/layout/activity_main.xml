@@ -12,50 +12,54 @@
         android:id="@+id/tvPeso"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Peso"
+        android:text="@string/peso"
         app:layout_constraintBottom_toTopOf="@+id/edPeso"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingStart="8dp"/>
 
     <TextView
         android:id="@+id/tvEstatura"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Estatura"
+        android:text="@string/estatura"
         app:layout_constraintBottom_toTopOf="@+id/edEstatura"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edPeso" />
+        app:layout_constraintTop_toBottomOf="@+id/edPeso"
+        android:paddingStart="8dp"/>
 
     <EditText
         android:id="@+id/edPeso"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Escriba su peso en kilogramos"
+        android:hint="@string/edPeso"
         app:layout_constraintBottom_toTopOf="@+id/tvEstatura"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvPeso"
-        android:inputType="number"/>
+        android:inputType="number"
+        android:paddingStart="8dp"/>
 
     <EditText
         android:id="@+id/edEstatura"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Escriba su estatura en metros"
+        android:hint="@string/edEstatura"
         app:layout_constraintBottom_toTopOf="@+id/btnIMC"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edPeso"
         app:layout_constraintVertical_bias="0.348"
-        android:inputType="numberDecimal"/>
+        android:inputType="numberDecimal"
+        android:paddingStart="8dp"/>
 
     <Button
         android:id="@+id/btnIMC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Calcular IMC"
+        android:text="@string/btnCalcular"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,7 +79,7 @@
         android:id="@+id/btnhistorial"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ver Historial"
+        android:text="@string/btnHistorial"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnIMC" />
@@ -83,7 +87,7 @@
         android:id="@+id/btnRol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cambiar Usuario"
+        android:text="@string/btnRol"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnhistorial" />

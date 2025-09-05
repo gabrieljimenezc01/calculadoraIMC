@@ -1,58 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
-
-    <TableLayout
-        android:id="@+id/tableHistorial"
+    android:padding="16dp"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/tvUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:stretchColumns="*"
-        android:shrinkColumns="*"
-        android:background="@android:color/white"
-        android:padding="8dp">
+        android:text="Usuario"
+        android:textAlignment="center"
+        android:fontFamily="serif"
+        android:textSize="9pt"
+        android:paddingTop="10dp"
+        android:paddingBottom="2dp"/>
 
-        <!-- Encabezados -->
-        <TableRow
-            android:background="#CCCCCC"
-            android:padding="8dp">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TableLayout
+            android:id="@+id/tableHistorial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:padding="8dp"
+            android:shrinkColumns="*"
+            android:stretchColumns="*">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ID"
-                android:textStyle="bold"
-                android:padding="8dp" />
+            <!-- Encabezados -->
+            <TableRow
+                android:background="#CCCCCC"
+                android:padding="8dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nombre"
-                android:textStyle="bold"
-                android:padding="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="@string/fecha"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Peso"
-                android:textStyle="bold"
-                android:padding="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="@string/peso"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Estatura"
-                android:textStyle="bold"
-                android:padding="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="@string/estatura"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="IMC"
-                android:textStyle="bold"
-                android:padding="8dp" />
-        </TableRow>
-    </TableLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="@string/imc"
+                    android:textStyle="bold" />
+            </TableRow>
+        </TableLayout>
 
-</ScrollView>
+    </ScrollView>
+
+</LinearLayout>

@@ -14,8 +14,9 @@ import android.content.Intent
 import android.os.Build
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import java.time.LocalDateTime
-
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +36,8 @@ class MainActivity : AppCompatActivity() {
 
         // Mostrar saludo
         val saludo = findViewById<TextView>(R.id.tvIMC)
-        saludo.text = "Hola, $nombre 👋"
+        val mensaje = getString(R.string.Saludo)
+        saludo.text = "$mensaje $nombre \uD83D\uDC4B"
 
         btnIMC.setOnClickListener {
             val view = this.currentFocus
@@ -45,38 +47,36 @@ class MainActivity : AppCompatActivity() {
             }
             val pesotexto = edPeso.text.toString()
             val estatura1 = edEstatura.text.toString()
+            val fecha = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
 
             if (pesotexto.isNotEmpty() && estatura1.isNotEmpty()) {
                 val peso = pesotexto.toDouble()
                 val estatura = estatura1.toDouble()
                 tvimc.text = ""
 
-                if (estatura > 0) {
-                    val imc = peso / (estatura * estatura)
-                    tvimc.text = when {
-                        imc <= 18.5 -> "IMC: %.2f (Bajo peso)".format(imc)
-                        imc <= 24.9 -> "IMC: %.2f (Normal)".format(imc)
-                        imc <= 29.9 -> "IMC: %.2f (Sobrepeso)".format(imc)
-                        else -> "IMC: %.2f (Obesidad)".format(imc)
-                    }
-                    val admin = AdminSQLiteOpenHelper(this,"administracion", null, 1)
-                    val bd = admin.writableDatabase
-                    val registro = ContentValues()
-                    registro.put("nombre", nombre)
-                    registro.put("peso", peso)
-                    registro.put("estatura", estatura)
-                    registro.put("imc", String.format("%.2f", imc))
-                    bd.insert("historial", null, registro)
-                    edPeso.setText("")
-                    edEstatura.setText("")
-                    bd.close()
-                    Toast.makeText(this, "Se cargaron los datos del artículo", Toast.LENGTH_SHORT).show()
-
-                } else {
-                    tvimc.text = "Digite la estatura"
+                val imc = peso / (estatura * estatura)
+                val imcformat = String.format("%.2f", imc)
+                tvimc.text = when {
+                    imc <= 18.5 -> "IMC: $imcformat ("+getString(R.string.bajopeso)+")"
+                    imc <= 24.9 -> "IMC: $imcformat (Normal)"
+                    imc <= 29.9 -> "IMC: $imcformat ("+getString(R.string.sobrepeso)+")"
+                    else -> "IMC: $imcformat ("+getString(R.string.obesidad)+")"
                 }
+                val admin = AdminSQLiteOpenHelper(this,"administracion", null, 1)
+                val bd = admin.writableDatabase
+                val registro = ContentValues()
+                registro.put("nombre", nombre)
+                registro.put("fecha", fecha.toString())
+                registro.put("peso", peso)
+                registro.put("estatura", estatura)
+                registro.put("imc", imcformat)
+                bd.insert("historial", null, registro)
+                edPeso.setText("")
+                edEstatura.setText("")
+                bd.close()
+                Toast.makeText(this, "Se cargaron los datos del artículo", Toast.LENGTH_SHORT).show()
             } else {
-                tvimc.text = "Hay un campo vacío:\nPeso= $pesotexto, Estatura= $estatura1"
+                tvimc.text = getString(R.string.faltandatos)
             }
         }
 

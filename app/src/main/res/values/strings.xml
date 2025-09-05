@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">calculadora IMC</string>
+    <string name="peso">Peso</string>
+    <string name="estatura">Estatura</string>
+    <string name="edPeso">Escriba su peso en Kilogramos</string>
+    <string name="edEstatura">Escriba su estatura en metros</string>
+    <string name="btnCalcular">Calcular IMC</string>
+    <string name="btnHistorial">Ver Historial</string>
+    <string name="btnRol">Cambiar Usuario</string>
+    <string name="Saludo">Hola!</string>
+    <string name="imc">IMC</string>
+    <string name="fecha">Fecha</string>
+    <string name="faltandatos">Todos los campos deben estar diligenciados</string>
+    <string name="bajopeso">Bajo peso</string>
+    <string name="sobrepeso">Sobrepeso</string>
+    <string name="obesidad">Obesidad</string>
+    <string name="tvnombre">Nombre</string>
+    <string name="ednombre">Escriba su nombre aqui</string>
+    <string name="tvnameapp">IMC</string>
 </resources>

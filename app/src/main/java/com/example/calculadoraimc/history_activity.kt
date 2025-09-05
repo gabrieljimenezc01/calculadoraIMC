@@ -21,25 +21,23 @@ class history_activity : AppCompatActivity() {
         val prefs = getSharedPreferences("usuario_prefs", Context.MODE_PRIVATE)
         val user = prefs.getString("nombre", "Usuario")
 
-        val cursor = db.rawQuery("SELECT codigo, nombre, peso, estatura, imc FROM historial WHERE nombre = '$user'", null)
+        val username= findViewById<TextView>(R.id.tvUser)
+        username.setText(user)
+
+        val cursor = db.rawQuery("SELECT fecha, peso, estatura, imc FROM historial WHERE nombre = '$user'", null)
 
         if (cursor.moveToFirst()) {
             do {
-                val codigo = cursor.getInt(0)
-                val nombre = cursor.getString(1)
-                val peso = cursor.getDouble(2)
-                val estatura = cursor.getDouble(3)
-                val imc = cursor.getString(4)
+                val fecha = cursor.getString(0)
+                val peso = cursor.getDouble(1)
+                val estatura = cursor.getDouble(2)
+                val imc = cursor.getString(3)
 
                 val row = TableRow(this)
 
-                val tvCodigo = TextView(this)
-                tvCodigo.text = codigo.toString()
-                tvCodigo.setPadding(8, 8, 8, 8)
-
-                val tvNombre = TextView(this)
-                tvNombre.text = nombre
-                tvNombre.setPadding(8, 8, 8, 8)
+                val tvFecha = TextView(this)
+                tvFecha.text = fecha
+                tvFecha.setPadding(8, 8, 8, 8)
 
                 val tvPeso = TextView(this)
                 tvPeso.text = peso.toString()
@@ -54,8 +52,7 @@ class history_activity : AppCompatActivity() {
                 tvImc.setPadding(8, 8, 8, 8)
 
                 // Agregamos las columnas en el orden que quieras mostrar
-                row.addView(tvCodigo)
-                row.addView(tvNombre)
+                row.addView(tvFecha)
                 row.addView(tvPeso)
                 row.addView(tvEstatura)
                 row.addView(tvImc)

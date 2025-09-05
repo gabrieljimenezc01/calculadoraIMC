@@ -11,13 +11,13 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Escriba su nombre aqui" />
+        android:text="@string/tvnombre" />
 
     <EditText
         android:id="@+id/edNombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Escribe tu nombre"
+        android:hint="@string/ednombre"
         android:inputType="textPersonName"/>
 
     <Button
