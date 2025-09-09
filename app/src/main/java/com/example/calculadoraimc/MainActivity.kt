@@ -11,9 +11,12 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import android.content.ContentValues
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -30,9 +33,13 @@ class MainActivity : AppCompatActivity() {
         val btnHistorial = findViewById<Button>(R.id.btnhistorial)
         val btnChange = findViewById<Button>(R.id.btnRol)
         val tvimc = findViewById<TextView>(R.id.tvIMC)
+        var user = findViewById<TextView>(R.id.correo_usuario)
 
-        val prefs = getSharedPreferences("usuario_prefs", Context.MODE_PRIVATE)
-        val nombre = prefs.getString("nombre", "Usuario")
+        val perf_user= getSharedPreferences(com.example.calculadoraimc.login.Global.preferencias_compartidas,Context.MODE_PRIVATE)
+        val user_per = perf_user.getString("Correo","usuario")
+        user.setText(user_per)
+
+        val nombre = user_per
 
         // Mostrar saludo
         val saludo = findViewById<TextView>(R.id.tvIMC)
@@ -84,7 +91,9 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, history_activity::class.java))
         }
         btnChange.setOnClickListener {
-            startActivity(Intent(this, RegistroActivity::class.java))
+            //startActivity(Intent(this, RegistroActivity::class.java))
+            startActivity(Intent(this, login::class.java))
+            borrar_sesion()
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -92,5 +101,13 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+    fun borrar_sesion(){
+        var borrar_sesion:SharedPreferences.Editor=this.getSharedPreferences(login.Global.preferencias_compartidas,Context.MODE_PRIVATE).edit()
+        borrar_sesion.clear()
+        borrar_sesion.apply()
+        borrar_sesion.commit()
+
+        Firebase.auth.signOut()
     }
 }

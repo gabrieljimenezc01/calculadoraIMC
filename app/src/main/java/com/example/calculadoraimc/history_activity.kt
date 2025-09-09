@@ -1,6 +1,7 @@
 package com.example.calculadoraimc
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.TableLayout
 import androidx.activity.enableEdgeToEdge
@@ -18,8 +19,11 @@ class history_activity : AppCompatActivity() {
         val tableLayout = findViewById<TableLayout>(R.id.tableHistorial)
         val admin = AdminSQLiteOpenHelper(this, "administracion", null, 1)
         val db = admin.readableDatabase
-        val prefs = getSharedPreferences("usuario_prefs", Context.MODE_PRIVATE)
-        val user = prefs.getString("nombre", "Usuario")
+
+        val perf_user= getSharedPreferences(com.example.calculadoraimc.login.Global.preferencias_compartidas,Context.MODE_PRIVATE)
+        val user_per = perf_user.getString("Correo","usuario")
+
+        val user = user_per
 
         val username= findViewById<TextView>(R.id.tvUser)
         username.setText(user)

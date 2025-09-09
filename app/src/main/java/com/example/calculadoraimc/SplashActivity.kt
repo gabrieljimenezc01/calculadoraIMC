@@ -26,12 +26,12 @@ class SplashActivity : AppCompatActivity() {
         videoView.setOnCompletionListener {
             val prefs = getSharedPreferences("usuario_prefs", Context.MODE_PRIVATE)
             val nombre = prefs.getString("nombre", null)
-
-            if (nombre.isNullOrEmpty()) {
-                startActivity(Intent(this, RegistroActivity::class.java))
-            } else {
-                startActivity(Intent(this, MainActivity::class.java))
-            }
+            startActivity(Intent(this, login::class.java))
+//            if (nombre.isNullOrEmpty()) {
+//                startActivity(Intent(this, RegistroActivity::class.java))
+//            } else {
+//                startActivity(Intent(this, MainActivity::class.java))
+//            }
            finish()
         }
 
