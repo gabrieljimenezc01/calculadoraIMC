@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1067163204764",
+    "project_id": "app-imc-34466",
+    "storage_bucket": "app-imc-34466.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1067163204764:android:94a882bf1ef6ae90998159",
+        "android_client_info": {
+          "package_name": "com.example.calculadoraimc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdctxJcwoKUJODAP8wVyUChrajEEOuATE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
