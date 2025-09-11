@@ -1,14 +1,12 @@
 package com.example.calculadoraimc
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.widget.TableLayout
+import android.view.Gravity
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import android.widget.TableRow
-import android.widget.TextView
-
 
 class history_activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,19 +14,21 @@ class history_activity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_history)
 
-        val tableLayout = findViewById<TableLayout>(R.id.tableHistorial)
+        val listHistorial = findViewById<LinearLayout>(R.id.listHistorial)
         val admin = AdminSQLiteOpenHelper(this, "administracion", null, 1)
         val db = admin.readableDatabase
-
+        val prefs = getSharedPreferences("usuario_prefs", Context.MODE_PRIVATE)
         val perf_user= getSharedPreferences(com.example.calculadoraimc.login.Global.preferencias_compartidas,Context.MODE_PRIVATE)
         val user_per = perf_user.getString("Correo","usuario")
 
+        val username = findViewById<TextView>(R.id.tvUser)
+        username.text = user_per
         val user = user_per
 
-        val username= findViewById<TextView>(R.id.tvUser)
-        username.setText(user)
-
-        val cursor = db.rawQuery("SELECT fecha, peso, estatura, imc FROM historial WHERE nombre = '$user'", null)
+        val cursor = db.rawQuery(
+            "SELECT fecha, peso, estatura, imc FROM historial WHERE nombre = '$user'",
+            null
+        )
 
         if (cursor.moveToFirst()) {
             do {
@@ -37,31 +37,57 @@ class history_activity : AppCompatActivity() {
                 val estatura = cursor.getDouble(2)
                 val imc = cursor.getString(3)
 
-                val row = TableRow(this)
+                // Crear tarjeta dinámica
+                val card = LinearLayout(this)
+                card.orientation = LinearLayout.VERTICAL
+                card.setPadding(24, 24, 24, 24)
+                card.setBackgroundResource(android.R.color.white)
+                card.elevation = 6f
 
-                val tvFecha = TextView(this)
-                tvFecha.text = fecha
-                tvFecha.setPadding(8, 8, 8, 8)
+                // Margen inferior entre tarjetas
+                val params = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+                params.setMargins(0, 0, 0, 24)
+                card.layoutParams = params
 
-                val tvPeso = TextView(this)
-                tvPeso.text = peso.toString()
-                tvPeso.setPadding(8, 8, 8, 8)
+                // Crear y añadir los textos
+                val tvFecha = TextView(this).apply {
+                    text = "📅 "+getString(R.string.fecha)+": $fecha"
+                    textSize = 16f
+                    setPadding(0, 4, 0, 4)
+                    setTypeface(typeface, android.graphics.Typeface.BOLD)
+                }
 
-                val tvEstatura = TextView(this)
-                tvEstatura.text = estatura.toString()
-                tvEstatura.setPadding(8, 8, 8, 8)
+                val tvPeso = TextView(this).apply {
+                    text = "⚖️ "+getString(R.string.peso)+": $peso kg"
+                    textSize = 15f
+                    setPadding(0, 4, 0, 4)
+                }
 
-                val tvImc = TextView(this)
-                tvImc.text = imc
-                tvImc.setPadding(8, 8, 8, 8)
+                val tvEstatura = TextView(this).apply {
+                    text = "📏 "+getString(R.string.estatura)+": $estatura m"
+                    textSize = 15f
+                    setPadding(0, 4, 0, 4)
+                }
 
-                // Agregamos las columnas en el orden que quieras mostrar
-                row.addView(tvFecha)
-                row.addView(tvPeso)
-                row.addView(tvEstatura)
-                row.addView(tvImc)
+                val tvImc = TextView(this).apply {
+                    text = "💪 $imc"
+                    textSize = 15f
+                    setPadding(0, 4, 0, 4)
+                    setTextColor(getColor(android.R.color.holo_green_dark))
+                    gravity = Gravity.END
+                }
 
-                tableLayout.addView(row)
+                // Agregar vistas a la tarjeta
+                card.addView(tvFecha)
+                card.addView(tvPeso)
+                card.addView(tvEstatura)
+                card.addView(tvImc)
+
+                // Agregar tarjeta al contenedor principal
+                listHistorial.addView(card)
 
             } while (cursor.moveToNext())
         }

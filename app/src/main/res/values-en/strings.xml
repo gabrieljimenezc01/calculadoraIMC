@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">calculadora IMC</string>
+    <string name="app_name">BMI Calculator</string>
     <string name="peso">Weight</string>
     <string name="estatura">Stature</string>
     <string name="edPeso">Enter your weight in kilograms</string>
@@ -18,4 +18,20 @@
     <string name="tvnombre">Name</string>
     <string name="ednombre">Write your name here</string>
     <string name="tvnameapp">BMI</string>
+    <string name="cargaexitosa">Data was loaded into history</string>
+    <string name="alertaestatura">Height must be greater than 0</string>
+    <string name="alertadatosincompletos">All fields must be completed</string>
+    <string name="correo">Email</string>
+    <string name="contraseña">Password</string>
+    <string name="btnEnviar">Register</string>
+    <string name="crearcuenta">CREATE ACCOUNT</string>
+    <string name="formatocorreo">Incorrect email format.</string>
+    <string name="escribacontraseña">Enter password</string>
+    <string name="cuentacreada">Created account.</string>
+    <string name="usuarioexistente">Short password/existing user.</string>
+    <string name="bienvenida">Welcome back.</string>
+    <string name="recordarme">Remember me.</string>
+    <string name="btniniciosesion">Log in</string>
+    <string name="nocuenta">Don\'t have an account? Sign up</string>
+    <string name="usuarioincorrecto">Incorrect username/password(s)</string>
 </resources>

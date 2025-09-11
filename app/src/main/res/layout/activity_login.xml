@@ -25,7 +25,7 @@
         android:id="@+id/tvAppName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="FinFlow"
+        android:text="@string/app_name"
         android:textSize="22sp"
         android:textStyle="bold"
         android:letterSpacing="0.02"
@@ -60,19 +60,10 @@
                 android:id="@+id/tvWelcome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bienvenido de vuelta"
+                android:text="@string/bienvenida"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/black" />
-
-            <TextView
-                android:id="@+id/tvSubtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Inicia sesión para administrar tus finanzas"
-                android:textSize="13sp"
-                android:layout_marginTop="4dp"
-                android:textColor="#8A8A8A" />
 
             <!-- Email -->
             <com.google.android.material.textfield.TextInputLayout
@@ -90,8 +81,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etEmail"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:hint="Correo electrónico"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/correo"
                     android:inputType="textEmailAddress"
                     android:imeOptions="actionNext" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -113,8 +104,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etPassword"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:hint="Contraseña"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/contraseña"
                     android:inputType="textPassword"
                     android:imeOptions="actionDone" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -131,7 +122,7 @@
                     android:id="@+id/cbRemember"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Recordarme"
+                    android:text="@string/recordarme"
                     android:textSize="13sp" />
 
                 <View
@@ -139,15 +130,6 @@
                     android:layout_width="0dp"
                     android:layout_height="1dp" />
 
-                <TextView
-                    android:id="@+id/tvForgot"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="¿Olvidaste tu contraseña?"
-                    android:textSize="13sp"
-                    android:textColor="@color/primary_700"
-                    android:clickable="true"
-                    android:focusable="true" />
             </LinearLayout>
 
             <!-- Login button -->
@@ -158,7 +140,7 @@
                 android:layout_height="48dp"
                 android:layout_marginTop="14dp"
                 android:background="@drawable/rounded_button"
-                android:text="Iniciar sesión"
+                android:text="@string/btniniciosesion"
                 android:textAllCaps="false"
                 android:textStyle="bold" />
 
@@ -183,43 +165,12 @@
                 <View android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" android:background="#E0E0E0"/>
             </LinearLayout>
 
-<!--            &lt;!&ndash; Social buttons &ndash;&gt;-->
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="horizontal"-->
-<!--                android:gravity="center"-->
-<!--                android:layout_marginTop="12dp">-->
-
-<!--                <com.google.android.material.button.MaterialButton-->
-<!--                    android:id="@+id/btnGoogle"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:layout_height="44dp"-->
-<!--                    android:layout_marginEnd="8dp"-->
-<!--                    android:text="Google"-->
-<!--                    app:icon="@drawable/ic_google"-->
-<!--                    app:iconGravity="textStart"-->
-<!--                    android:textAllCaps="false" />-->
-
-<!--                <com.google.android.material.button.MaterialButton-->
-<!--                    android:id="@+id/btnBiometric"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:layout_height="44dp"-->
-<!--                    android:layout_marginStart="8dp"-->
-<!--                    android:text="Huella"-->
-<!--                    app:icon="@drawable/ic_fingerprint"-->
-<!--                    app:iconGravity="textStart"-->
-<!--                    android:textAllCaps="false" />-->
-<!--            </LinearLayout>-->
-
             <!-- Register link -->
             <TextView
                 android:id="@+id/tvRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="¿No tienes cuenta? Regístrate"
+                android:text="@string/nocuenta"
                 android:textAlignment="center"
                 android:textSize="13sp"
                 android:layout_marginTop="14dp"

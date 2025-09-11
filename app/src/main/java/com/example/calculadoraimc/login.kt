@@ -40,11 +40,11 @@ class login : AppCompatActivity() {
                     login_firebase(correo.text.toString(),pass.text.toString())
                 }
                 else{
-                    Toast.makeText(applicationContext,"Formato de correo incorrecto.",Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext,getString(R.string.formatocorreo),Toast.LENGTH_LONG).show()
                 }
             }
             else{
-                Toast.makeText(applicationContext,"Escriba la contraseña",Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext,getString(R.string.escribacontraseña),Toast.LENGTH_LONG).show()
             }
 
         }
@@ -84,7 +84,7 @@ class login : AppCompatActivity() {
                         guardar_sesion(task.result.user?.email.toString(),"Usuario/contraseña")
                     }
                 } else {
-                    Toast.makeText(applicationContext,"Usuario/contraseña incorrecto(s)",Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext,getString(R.string.usuarioincorrecto),Toast.LENGTH_LONG).show()
                 }
             }
     }

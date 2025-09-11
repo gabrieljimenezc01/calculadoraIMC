@@ -13,6 +13,7 @@ import android.content.ContentValues
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.google.firebase.Firebase
@@ -31,9 +32,10 @@ class MainActivity : AppCompatActivity() {
         val edEstatura = findViewById<EditText>(R.id.edEstatura)
         val btnIMC = findViewById<Button>(R.id.btnIMC)
         val btnHistorial = findViewById<Button>(R.id.btnhistorial)
-        val btnChange = findViewById<Button>(R.id.btnRol)
+        val btnChange = findViewById<ImageButton>(R.id.btnRol)
         val tvimc = findViewById<TextView>(R.id.tvIMC)
         var user = findViewById<TextView>(R.id.correo_usuario)
+        val imagen = findViewById<com.google.android.material.imageview.ShapeableImageView>(R.id.imgResultado)
 
         val perf_user= getSharedPreferences(com.example.calculadoraimc.login.Global.preferencias_compartidas,Context.MODE_PRIVATE)
         val user_per = perf_user.getString("Correo","usuario")
@@ -60,30 +62,39 @@ class MainActivity : AppCompatActivity() {
                 val peso = pesotexto.toDouble()
                 val estatura = estatura1.toDouble()
                 tvimc.text = ""
-
-                val imc = peso / (estatura * estatura)
-                val imcformat = String.format("%.2f", imc)
-                tvimc.text = when {
-                    imc <= 18.5 -> "IMC: $imcformat ("+getString(R.string.bajopeso)+")"
-                    imc <= 24.9 -> "IMC: $imcformat (Normal)"
-                    imc <= 29.9 -> "IMC: $imcformat ("+getString(R.string.sobrepeso)+")"
-                    else -> "IMC: $imcformat ("+getString(R.string.obesidad)+")"
+                if (estatura>0){
+                    val imc = peso / (estatura * estatura)
+                    val imcformat = String.format("%.2f", imc)
+                    imagen.setImageResource(when{
+                        imc <= 18.5 -> R.drawable.bajopeso
+                        imc <= 24.9 -> R.drawable.normal
+                        imc <= 29.9 -> R.drawable.sobrepeso
+                        else -> R.drawable.obesidad
+                    })
+                    tvimc.text = when {
+                        imc <= 18.5 -> "IMC: $imcformat ("+getString(R.string.bajopeso)+")"
+                        imc <= 24.9 -> "IMC: $imcformat (Normal)"
+                        imc <= 29.9 -> "IMC: $imcformat ("+getString(R.string.sobrepeso)+")"
+                        else -> "IMC: $imcformat ("+getString(R.string.obesidad)+")"
+                    }
+                    val admin = AdminSQLiteOpenHelper(this,"administracion", null, 1)
+                    val bd = admin.writableDatabase
+                    val registro = ContentValues()
+                    registro.put("nombre", nombre)
+                    registro.put("fecha", fecha.toString())
+                    registro.put("peso", peso)
+                    registro.put("estatura", estatura)
+                    registro.put("imc", tvimc.text.toString())
+                    bd.insert("historial", null, registro)
+                    edPeso.setText("")
+                    edEstatura.setText("")
+                    bd.close()
+                    Toast.makeText(this, getString(R.string.cargaexitosa), Toast.LENGTH_SHORT).show()
+                }else {
+                    Toast.makeText(this, getString(R.string.alertaestatura), Toast.LENGTH_SHORT).show()
                 }
-                val admin = AdminSQLiteOpenHelper(this,"administracion", null, 1)
-                val bd = admin.writableDatabase
-                val registro = ContentValues()
-                registro.put("nombre", nombre)
-                registro.put("fecha", fecha.toString())
-                registro.put("peso", peso)
-                registro.put("estatura", estatura)
-                registro.put("imc", imcformat)
-                bd.insert("historial", null, registro)
-                edPeso.setText("")
-                edEstatura.setText("")
-                bd.close()
-                Toast.makeText(this, "Se cargaron los datos del artículo", Toast.LENGTH_SHORT).show()
             } else {
-                tvimc.text = getString(R.string.faltandatos)
+                Toast.makeText(this, getString(R.string.alertadatosincompletos), Toast.LENGTH_SHORT).show()
             }
         }
 

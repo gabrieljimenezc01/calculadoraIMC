@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">calculadora IMC</string>
+    <string name="app_name">Calculadora IMC</string>
     <string name="peso">Peso</string>
     <string name="estatura">Estatura</string>
     <string name="edPeso">Escriba su peso en Kilogramos</string>
@@ -17,4 +17,20 @@
     <string name="tvnombre">Nombre</string>
     <string name="ednombre">Escriba su nombre aqui</string>
     <string name="tvnameapp">IMC</string>
+    <string name="cargaexitosa">Se cargaron los datos al historial</string>
+    <string name="alertaestatura">La estatura debe ser mayor a 0</string>
+    <string name="alertadatosincompletos">Todos los campos deben estar Diligenciados</string>
+    <string name="correo">Correo electrónico</string>
+    <string name="contraseña">Contraseña</string>
+    <string name="btnEnviar">Enviar</string>
+    <string name="crearcuenta">CREAR CUENTA</string>
+    <string name="formatocorreo">Formato de correo incorrecto.</string>
+    <string name="escribacontraseña">Escriba la contraseña</string>
+    <string name="cuentacreada">Cuenta creada.</string>
+    <string name="usuarioexistente">Contraseña corta/usuario existente.</string>
+    <string name="bienvenida">Bienvenido de vuelta.</string>
+    <string name="recordarme">"Recordarme. "</string>
+    <string name="btniniciosesion">"Iniciar sesión "</string>
+    <string name="nocuenta">" ¿No tienes cuenta? Regístrate  "</string>
+    <string name="usuarioincorrecto">Usuario/contraseña incorrecto(s)</string>
 </resources>

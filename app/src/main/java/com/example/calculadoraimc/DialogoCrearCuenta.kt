@@ -1,5 +1,6 @@
 package com.example.calculadoraimc
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -29,14 +30,15 @@ class DialogoCrearCuenta : DialogFragment() {
         boton_crear_cuenta.setOnClickListener{
             if(pass.text.toString()!=""){
                 if(correo.text.toString()!="" && Patterns.EMAIL_ADDRESS.matcher(correo.text.toString()).matches()){
+
                     crear_cuenta_firebase(correo.text.toString(),pass.text.toString())
                 }
                 else{
-                    Toast.makeText(requireContext(),"Formato de correo incorrecto.",Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(),getString(R.string.formatocorreo),Toast.LENGTH_LONG).show()
                 }
             }
             else{
-                Toast.makeText(requireContext(),"Escriba la contraseña",Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(),getString(R.string.escribacontraseña),Toast.LENGTH_LONG).show()
             }
         }
 
@@ -49,14 +51,11 @@ class DialogoCrearCuenta : DialogFragment() {
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(correo, pass)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    var intent = Intent(requireContext(), MainActivity::class.java)
-                    intent.putExtra("Correo",task.result.user?.email)
-//                    intent.putExtra("Proveedor","Usuario/contraseña")
+                    var intent = Intent(requireContext(), login::class.java)
                     startActivity(intent)
-
-                    Toast.makeText(requireContext(),"Cuenta creada.",Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(),getString(R.string.cuentacreada),Toast.LENGTH_LONG).show()
                 } else {
-                    Toast.makeText(requireContext(),"Contraseña corta/usuario existente.",Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(),getString(R.string.usuarioexistente),Toast.LENGTH_LONG).show()
                 }
             }
     }
