@@ -30,7 +30,7 @@ class RegistroActivity : AppCompatActivity() {
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
             } else {
-                edNombre.error = "Por favor escribe tu nombre"
+                edNombre.error = getString(R.string.ednombre)
             }
         }
     }

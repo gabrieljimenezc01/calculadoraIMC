@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center_horizontal"
+    android:background="#F5F5F5">
+
+    <!-- Nombre del usuario -->
+    <TextView
+        android:id="@+id/tvUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Usuario"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#222222"
+        android:paddingTop="12dp"
+        android:paddingBottom="20dp" />
+
+    <!-- Contenedor scrollable para el historial -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/listHistorial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:divider="@android:color/darker_gray"
+            android:showDividers="middle">
+
+            <!-- Un registro de ejemplo -->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:background="@android:color/white"-->
+<!--                android:elevation="3dp"-->
+<!--                android:padding="12dp"-->
+<!--                android:layout_marginBottom="12dp">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="📅 Fecha: 2025-08-29"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:textColor="#000000"/>-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="⚖️ Peso: 70 kg"-->
+<!--                    android:textSize="15sp"-->
+<!--                    android:textColor="#333333"-->
+<!--                    android:paddingTop="4dp"/>-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="📏 Estatura: 1.75 m"-->
+<!--                    android:textSize="15sp"-->
+<!--                    android:textColor="#333333"-->
+<!--                    android:paddingTop="4dp"/>-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="💪 IMC: 22.8"-->
+<!--                    android:textSize="15sp"-->
+<!--                    android:textStyle="italic"-->
+<!--                    android:textColor="@android:color/holo_green_dark"-->
+<!--                    android:paddingTop="4dp"/>-->
+<!--            </LinearLayout>-->
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

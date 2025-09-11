@@ -11,7 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CalculadoraIMC">
-        <!-- Splash es la primera pantalla -->
+        <activity
+            android:name=".login"
+            android:exported="false" />
+        <activity
+            android:name=".history_activity"
+            android:exported="false" /> <!-- Splash es la primera pantalla -->
         <activity
             android:name=".SplashActivity"
             android:exported="true"
@@ -27,9 +32,6 @@
             android:exported="true" /> <!-- MainActivity se abre después de registrar o si ya hay nombre -->
         <activity
             android:name=".MainActivity"
-            android:exported="true" />
-        <activity
-            android:name=".activity_historial"
             android:exported="true" />
     </application>
 

@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="primary_700">#1717D3</color>
+    <color name="gradient_start">#D2DAE3</color>
+    <color name="gradient_end">#E2B1B3B4</color>
+    <color name="accent">#FFB86B</color>
 </resources>

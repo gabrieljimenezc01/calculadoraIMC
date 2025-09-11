@@ -1,6 +1,6 @@
 package com.example.calculadoraimc
 
-import android.content.Context   // 👈 este es el que faltaba
+import android.content.Context
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -11,11 +11,16 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import android.content.ContentValues
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import java.time.Instant
-
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,66 +31,80 @@ class MainActivity : AppCompatActivity() {
         val edPeso = findViewById<EditText>(R.id.edPeso)
         val edEstatura = findViewById<EditText>(R.id.edEstatura)
         val btnIMC = findViewById<Button>(R.id.btnIMC)
+        val btnHistorial = findViewById<Button>(R.id.btnhistorial)
+        val btnChange = findViewById<ImageButton>(R.id.btnRol)
         val tvimc = findViewById<TextView>(R.id.tvIMC)
-        val btnGaurdar = findViewById<Button>(R.id.btnGuardar)
-        val btnVerHistorial = findViewById<Button>(R.id.btnVerHistorial)
+        var user = findViewById<TextView>(R.id.correo_usuario)
+        val imagen = findViewById<com.google.android.material.imageview.ShapeableImageView>(R.id.imgResultado)
 
-        val prefs = getSharedPreferences("usuario_prefs", Context.MODE_PRIVATE)
-        val nombre = prefs.getString("nombre", "Usuario")
+        val perf_user= getSharedPreferences(com.example.calculadoraimc.login.Global.preferencias_compartidas,Context.MODE_PRIVATE)
+        val user_per = perf_user.getString("Correo","usuario")
+        user.setText(user_per)
 
-        val pesotexto = edPeso.text.toString()
-        val estatura = edEstatura.text.toString()
+        val nombre = user_per
+
         // Mostrar saludo
         val saludo = findViewById<TextView>(R.id.tvIMC)
-        saludo.text = "Hola, $nombre 👋"
+        val mensaje = getString(R.string.Saludo)
+        saludo.text = "$mensaje $nombre \uD83D\uDC4B"
 
         btnIMC.setOnClickListener {
-            if (pesotexto.isNotEmpty() && estatura.isNotEmpty()) {
-                val peso = pesotexto.toFloat()
-                val estatura = estatura.toFloat()
-                tvimc.text = ""
+            val view = this.currentFocus
+            if (view != null) {
+                val imm = getSystemService(INPUT_METHOD_SERVICE) as android.view.inputmethod.InputMethodManager
+                imm.hideSoftInputFromWindow(view.windowToken, 0)
+            }
+            val pesotexto = edPeso.text.toString()
+            val estatura1 = edEstatura.text.toString()
+            val fecha = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
 
-                if (estatura > 0) {
+            if (pesotexto.isNotEmpty() && estatura1.isNotEmpty()) {
+                val peso = pesotexto.toDouble()
+                val estatura = estatura1.toDouble()
+                tvimc.text = ""
+                if (estatura>0){
                     val imc = peso / (estatura * estatura)
+                    val imcformat = String.format("%.2f", imc)
+                    imagen.setImageResource(when{
+                        imc <= 18.5 -> R.drawable.bajopeso
+                        imc <= 24.9 -> R.drawable.normal
+                        imc <= 29.9 -> R.drawable.sobrepeso
+                        else -> R.drawable.obesidad
+                    })
                     tvimc.text = when {
-                        imc <= 18.5 -> "IMC: %.2f (Bajo peso)".format(imc)
-                        imc <= 24.9 -> "IMC: %.2f (Normal)".format(imc)
-                        imc <= 29.9 -> "IMC: %.2f (Sobrepeso)".format(imc)
-                        else -> "IMC: %.2f (Obesidad)".format(imc)
+                        imc <= 18.5 -> "IMC: $imcformat ("+getString(R.string.bajopeso)+")"
+                        imc <= 24.9 -> "IMC: $imcformat (Normal)"
+                        imc <= 29.9 -> "IMC: $imcformat ("+getString(R.string.sobrepeso)+")"
+                        else -> "IMC: $imcformat ("+getString(R.string.obesidad)+")"
                     }
-                } else {
-                    tvimc.text = "Digite la estatura"
+                    val admin = AdminSQLiteOpenHelper(this,"administracion", null, 1)
+                    val bd = admin.writableDatabase
+                    val registro = ContentValues()
+                    registro.put("nombre", nombre)
+                    registro.put("fecha", fecha.toString())
+                    registro.put("peso", peso)
+                    registro.put("estatura", estatura)
+                    registro.put("imc", tvimc.text.toString())
+                    bd.insert("historial", null, registro)
+                    edPeso.setText("")
+                    edEstatura.setText("")
+                    bd.close()
+                    Toast.makeText(this, getString(R.string.cargaexitosa), Toast.LENGTH_SHORT).show()
+                }else {
+                    Toast.makeText(this, getString(R.string.alertaestatura), Toast.LENGTH_SHORT).show()
                 }
             } else {
-                tvimc.text = "Hay un campo vacío:\nPeso= $pesotexto, Estatura= $estatura"
+                Toast.makeText(this, getString(R.string.alertadatosincompletos), Toast.LENGTH_SHORT).show()
             }
         }
 
-        btnGaurdar.setOnClickListener {
-            val fecha = Instant.now()
-            val admin = AdminSQLiteOpenHelper(this, "administracion", null, 1)
-            val bd = admin.writableDatabase
-            val registro = ContentValues()
-
-            registro.put("peso", pesotexto.toDouble())
-            registro.put("estatura", estatura.toDouble())
-            registro.put("imc", tvimc.text.toString())  // guarda el valor calculado, no el texto
-            registro.put("nombre", nombre)
-            registro.put("fecha", fecha.toString())
-
-            bd.insert("Historial", null, registro)
-            bd.close()
-
-            edPeso.setText("")
-            edEstatura.setText("")
-            tvimc.text = "Hola, $nombre 👋"
-
-            Toast.makeText(this, "Se guardaron los datos en el historial", Toast.LENGTH_SHORT).show()
+        btnHistorial.setOnClickListener {
+            startActivity(Intent(this, history_activity::class.java))
         }
-
-        btnVerHistorial.setOnClickListener {
-            val intent = Intent(this, activity_historial::class.java)
-            startActivity(intent)
+        btnChange.setOnClickListener {
+            //startActivity(Intent(this, RegistroActivity::class.java))
+            startActivity(Intent(this, login::class.java))
+            borrar_sesion()
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -93,5 +112,13 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+    fun borrar_sesion(){
+        var borrar_sesion:SharedPreferences.Editor=this.getSharedPreferences(login.Global.preferencias_compartidas,Context.MODE_PRIVATE).edit()
+        borrar_sesion.clear()
+        borrar_sesion.apply()
+        borrar_sesion.commit()
+
+        Firebase.auth.signOut()
     }
 }
